@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", "Georgia", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-stone-50 text-stone-900 font-sans;
+  }
+}
+
+.gallery-frame {
+  position: relative;
+  border: 1px solid #c5a059;
+  padding: 8px;
+  background-color: #fdfcf8;
+}
+
+.gallery-frame::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  border: 1.5px solid #c5a059;
+  pointer-events: none;
+}
+
+/* Decorative corners - more like the invitation */
+.gallery-frame::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 12px 12px, #c5a059 2px, transparent 0),
+    radial-gradient(circle at calc(100% - 12px) 12px, #c5a059 2px, transparent 0),
+    radial-gradient(circle at 12px calc(100% - 12px), #c5a059 2px, transparent 0),
+    radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #c5a059 2px, transparent 0);
+  pointer-events: none;
+}
+
+.print-page {
+  width: 210mm;
+  height: 297mm;
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.tombstone-card {
+  width: 3.75in;
+  height: 2.25in;
+  padding: 0.2in;
+  margin: 0.15in;
+  display: flex;
+  flex-direction: column;
+  page-break-inside: avoid;
+  position: relative;
+  border: 1px solid #8b7355;
+}
+
+.tombstone-card::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  border: 1px solid #8b7355;
+  pointer-events: none;
+}
+
+@media print {
+  body {
+    background: white;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+
+  .print-page {
+    padding: 35mm;
+    margin: 0;
+    page-break-after: always;
+  }
+
+  .tombstone-card {
+    margin: 0.15in;
+  }
+}
+
